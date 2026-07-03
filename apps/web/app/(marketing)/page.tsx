@@ -1,10 +1,12 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-
+import Testimonials from "@/components/landing/Testimonials";
 import Hero from "@/components/landing/Hero";
 import Features from "@/components/landing/Features";
 import HowItWorks from "@/components/landing/HowItWorks";
-import ProductPreview from "@/components/landing/ProductPreview";
+import DashboardPreview from "@/components/landing/DashboardPreview";
+import Pricing from "@/components/landing/Pricing";
+import FAQ from "@/components/landing/FAQ";
 
 export default function Home() {
   return (
@@ -15,7 +17,10 @@ export default function Home() {
         <Hero />
         <Features />
         <HowItWorks />
-        <ProductPreview />
+        <DashboardPreview />
+        <Testimonials />
+        <Pricing />
+        <FAQ /> 
       </main>
 
       <Footer />

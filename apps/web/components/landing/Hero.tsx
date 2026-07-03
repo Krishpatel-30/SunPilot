@@ -1,41 +1,170 @@
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  ArrowRight,
+  CheckCircle2,
+  BarChart3,
+  FileText,
+  Sun,
+} from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-6">
-      <div className="max-w-4xl text-center">
-        <div className="mb-6 inline-flex rounded-full border border-amber-200 bg-amber-50 px-4 py-2 text-sm font-medium text-amber-700">
-          ☀ AI Copilot for Solar Installers
+    <section className="bg-gradient-to-b from-white to-slate-50">
+      <div className="mx-auto grid min-h-[90vh] max-w-7xl items-center gap-16 px-6 py-20 lg:grid-cols-2">
+
+        {/* Left Side */}
+        <div>
+          <Badge className="mb-6 bg-amber-100 px-4 py-2 text-amber-700 hover:bg-amber-100">
+            ☀ AI Copilot for Solar Installers
+          </Badge>
+
+          <h1 className="text-5xl font-extrabold leading-tight tracking-tight text-slate-900 md:text-7xl">
+            Design Solar
+            <br />
+            Systems
+            <span className="block text-amber-500">
+              10× Faster
+            </span>
+          </h1>
+
+          <p className="mt-8 max-w-xl text-lg leading-8 text-slate-600">
+            Upload a roof image, generate AI-powered layouts, estimate energy
+            production, calculate ROI, and create professional proposal PDFs
+            in minutes.
+          </p>
+
+          <div className="mt-10 flex flex-wrap gap-4">
+            <Button
+              size="lg"
+              className="bg-amber-500 hover:bg-amber-600"
+            >
+              Start Free Trial
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+
+            <Button
+              size="lg"
+              variant="outline"
+            >
+              Book Demo
+            </Button>
+          </div>
+
+          <div className="mt-12 grid grid-cols-3 gap-6">
+
+            <div>
+              <h3 className="text-3xl font-bold text-slate-900">
+                5K+
+              </h3>
+
+              <p className="text-sm text-slate-500">
+                Proposals Generated
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-3xl font-bold text-slate-900">
+                98%
+              </h3>
+
+              <p className="text-sm text-slate-500">
+                Faster Workflow
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-3xl font-bold text-slate-900">
+                24/7
+              </h3>
+
+              <p className="text-sm text-slate-500">
+                Cloud Access
+              </p>
+            </div>
+
+          </div>
         </div>
 
-        <h1 className="text-5xl font-extrabold tracking-tight text-slate-900 md:text-7xl">
-          Design Solar Systems
-          <span className="block text-amber-500">
-            In Minutes.
-          </span>
-        </h1>
+        {/* Right Side */}
+        <div className="relative">
 
-        <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-600">
-          AI-powered software for solar installers to create proposals,
-          calculate energy generation, estimate ROI, and close more deals
-          in a fraction of the time.
-        </p>
+          <div className="rounded-3xl border bg-white p-8 shadow-2xl">
 
-        <div className="mt-10 flex flex-wrap justify-center gap-4">
-          <Button
-            size="lg"
-            className="bg-amber-500 hover:bg-amber-600"
-          >
-            Start Free Trial
-          </Button>
+            <div className="mb-8 flex items-center justify-between">
 
-          <Button
-            size="lg"
-            variant="outline"
-          >
-            Book Demo
-          </Button>
+              <div>
+                <h2 className="text-2xl font-bold">
+                  SunPilot
+                </h2>
+
+                <p className="text-slate-500">
+                  Project Dashboard
+                </p>
+              </div>
+
+              <Sun className="h-10 w-10 text-amber-500" />
+
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+
+              <div className="rounded-2xl bg-slate-100 p-5">
+                <BarChart3 className="mb-3 h-8 w-8 text-blue-500" />
+
+                <p className="text-sm text-slate-500">
+                  System Size
+                </p>
+
+                <h3 className="text-2xl font-bold">
+                  6.5 kW
+                </h3>
+              </div>
+
+              <div className="rounded-2xl bg-slate-100 p-5">
+                <CheckCircle2 className="mb-3 h-8 w-8 text-green-500" />
+
+                <p className="text-sm text-slate-500">
+                  Roof Status
+                </p>
+
+                <h3 className="text-2xl font-bold">
+                  Ready
+                </h3>
+              </div>
+
+              <div className="rounded-2xl bg-slate-100 p-5">
+                <FileText className="mb-3 h-8 w-8 text-purple-500" />
+
+                <p className="text-sm text-slate-500">
+                  Proposal
+                </p>
+
+                <h3 className="text-2xl font-bold">
+                  Generated
+                </h3>
+              </div>
+
+              <div className="rounded-2xl bg-slate-100 p-5">
+                <p className="text-sm text-slate-500">
+                  Annual Savings
+                </p>
+
+                <h3 className="mt-3 text-2xl font-bold text-green-600">
+                  ₹82,000
+                </h3>
+              </div>
+
+            </div>
+
+            <Button className="mt-8 w-full bg-amber-500 hover:bg-amber-600">
+              Generate Proposal
+            </Button>
+
+          </div>
+
         </div>
+
       </div>
     </section>
   );
