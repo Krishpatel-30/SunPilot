@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   Plus,
@@ -10,6 +11,7 @@ const actions = [
   {
     title: "New Project",
     icon: Plus,
+    href: "/projects/new",
   },
   {
     title: "Add Customer",
@@ -36,15 +38,24 @@ export default function QuickActions() {
         {actions.map((action) => {
           const Icon = action.icon;
 
-          return (
+          const button = (
             <Button
-              key={action.title}
               variant="outline"
-              className="flex h-24 flex-col items-center justify-center gap-3 rounded-xl hover:bg-amber-50 hover:border-amber-400"
+              className="flex h-24 w-full flex-col items-center justify-center gap-3 rounded-xl hover:border-amber-400 hover:bg-amber-50"
             >
               <Icon className="h-7 w-7 text-amber-500" />
               {action.title}
             </Button>
+          );
+
+          return action.href ? (
+            <Link key={action.title} href={action.href}>
+              {button}
+            </Link>
+          ) : (
+            <div key={action.title}>
+              {button}
+            </div>
           );
         })}
       </div>

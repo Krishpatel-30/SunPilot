@@ -10,46 +10,51 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { api } from "@/lib/api";
 
-const loginSchema = z.object({
-  email: z.string().email("Please enter a valid email"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-});
+const registerSchema = z
+  .object({
+    full_name: z.string().min(2, "Full name is required"),
+    email: z.string().email("Please enter a valid email"),
+    password: z.string().min(6, "Password must be at least 6 characters"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
 
-type LoginFormData = z.infer<typeof loginSchema>;
+type RegisterFormData = z.infer<typeof registerSchema>;
 
-export default function LoginForm() {
+export default function RegisterForm() {
   const router = useRouter();
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
+      full_name: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
   });
 
-  async function onSubmit(data: LoginFormData) {
+  async function onSubmit(data: RegisterFormData) {
     try {
-      const response = await api.post("/auth/login", {
+      await api.post("/auth/register", {
+        full_name: data.full_name,
         email: data.email,
         password: data.password,
       });
 
-      localStorage.setItem(
-        "access_token",
-        response.data.access_token
-      );
+      alert("Registration Successful!");
 
-      alert("Login Successful!");
-
-      router.push("/dashboard");
+      router.push("/login");
     } catch (error: any) {
       alert(
-        error?.response?.data?.detail || "Login failed."
+        error?.response?.data?.detail || "Registration failed"
       );
     }
   }
@@ -61,12 +66,29 @@ export default function LoginForm() {
     >
       <div>
         <label className="mb-2 block text-sm font-medium">
+          Full Name
+        </label>
+
+        <Input
+          placeholder="John Doe"
+          {...register("full_name")}
+        />
+
+        {errors.full_name && (
+          <p className="mt-2 text-sm text-red-500">
+            {errors.full_name.message}
+          </p>
+        )}
+      </div>
+
+      <div>
+        <label className="mb-2 block text-sm font-medium">
           Email
         </label>
 
         <Input
           type="email"
-          placeholder="you@example.com"
+          placeholder="john@example.com"
           {...register("email")}
         />
 
@@ -95,13 +117,22 @@ export default function LoginForm() {
         )}
       </div>
 
-      <div className="flex justify-end">
-        <Link
-          href="/forgot-password"
-          className="text-sm text-amber-600 hover:underline"
-        >
-          Forgot password?
-        </Link>
+      <div>
+        <label className="mb-2 block text-sm font-medium">
+          Confirm Password
+        </label>
+
+        <Input
+          type="password"
+          placeholder="Confirm password"
+          {...register("confirmPassword")}
+        />
+
+        {errors.confirmPassword && (
+          <p className="mt-2 text-sm text-red-500">
+            {errors.confirmPassword.message}
+          </p>
+        )}
       </div>
 
       <Button
@@ -109,16 +140,16 @@ export default function LoginForm() {
         className="w-full bg-amber-500 hover:bg-amber-600"
         disabled={isSubmitting}
       >
-        {isSubmitting ? "Signing In..." : "Sign In"}
+        {isSubmitting ? "Creating Account..." : "Create Account"}
       </Button>
 
       <p className="text-center text-sm text-slate-600">
-        Don't have an account?{" "}
+        Already have an account?{" "}
         <Link
-          href="/register"
+          href="/login"
           className="font-medium text-amber-600 hover:underline"
         >
-          Create Account
+          Sign In
         </Link>
       </p>
     </form>
