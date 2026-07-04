@@ -35,29 +35,35 @@ export default function EditCustomerDialog({
 }: Props) {
   const [loading, setLoading] = useState(false);
 
+  // Don't render the dialog if no customer is selected
   if (!customer) return null;
 
+  // After the null check, TypeScript knows this is a Customer
+  const currentCustomer = customer;
+
   const defaultValues: CustomerFormData = {
-    full_name: customer.full_name,
-    email: customer.email,
-    phone: customer.phone,
-    address: customer.address ?? "",
-    city: customer.city ?? "",
-    state: customer.state ?? "",
-    country: customer.country ?? "",
-    postal_code: customer.postal_code ?? "",
+    full_name: currentCustomer.full_name,
+    email: currentCustomer.email,
+    phone: currentCustomer.phone,
+    address: currentCustomer.address ?? "",
+    city: currentCustomer.city ?? "",
+    state: currentCustomer.state ?? "",
+    country: currentCustomer.country ?? "",
+    postal_code: currentCustomer.postal_code ?? "",
   };
 
   async function handleSubmit(
     data: CustomerFormData
-  ) {
+  ): Promise<void> {
     try {
       setLoading(true);
 
-      await updateCustomer(customer.id, data);
+      await updateCustomer(
+        currentCustomer.id,
+        data
+      );
 
       onSuccess();
-
       onOpenChange(false);
 
     } catch (error: any) {
@@ -89,7 +95,6 @@ export default function EditCustomerDialog({
           onSubmit={handleSubmit}
           loading={loading}
         />
-
       </DialogContent>
     </Dialog>
   );

@@ -35,34 +35,37 @@ export default function EditProjectDialog({
 }: Props) {
   const [loading, setLoading] = useState(false);
 
+  // Don't render if no project is selected
   if (!project) return null;
 
+  // TypeScript now knows this is a Project
+  const currentProject = project;
+
   const defaultValues: ProjectFormData = {
-    customer_id: project.customer_id,
-    project_name: project.project_name,
-    project_type: project.project_type,
-    roof_type: project.roof_type,
-    monthly_bill: project.monthly_bill,
-    address: project.address ?? "",
-    city: project.city ?? "",
-    state: project.state ?? "",
-    country: project.country ?? "",
-    status: project.status,
+    customer_id: currentProject.customer_id,
+    project_name: currentProject.project_name,
+    project_type: currentProject.project_type,
+    roof_type: currentProject.roof_type,
+    monthly_bill: currentProject.monthly_bill,
+    address: currentProject.address ?? "",
+    city: currentProject.city ?? "",
+    state: currentProject.state ?? "",
+    country: currentProject.country ?? "",
+    status: currentProject.status,
   };
 
   async function handleSubmit(
     data: ProjectFormData
-  ) {
+  ): Promise<void> {
     try {
       setLoading(true);
 
       await updateProject(
-        project.id,
+        currentProject.id,
         data
       );
 
       onSuccess();
-
       onOpenChange(false);
 
     } catch (error: any) {

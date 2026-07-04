@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -15,6 +17,7 @@ export default function Hero() {
 
         {/* Left Side */}
         <div>
+
           <Badge className="mb-6 bg-amber-100 px-4 py-2 text-amber-700 hover:bg-amber-100">
             ☀ AI Copilot for Solar Installers
           </Badge>
@@ -29,26 +32,32 @@ export default function Hero() {
           </h1>
 
           <p className="mt-8 max-w-xl text-lg leading-8 text-slate-600">
-            Upload a roof image, generate AI-powered layouts, estimate energy
-            production, calculate ROI, and create professional proposal PDFs
-            in minutes.
+            Upload a roof image, generate AI-powered layouts,
+            estimate energy production, calculate ROI,
+            and create professional proposal PDFs in minutes.
           </p>
 
           <div className="mt-10 flex flex-wrap gap-4">
-            <Button
-              size="lg"
-              className="bg-amber-500 hover:bg-amber-600"
-            >
-              Start Free Trial
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
 
-            <Button
-              size="lg"
-              variant="outline"
-            >
-              Book Demo
-            </Button>
+            <Link href="/register">
+              <Button
+                size="lg"
+                className="bg-amber-500 hover:bg-amber-600"
+              >
+                Start Free Trial
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+
+            <Link href="/login">
+              <Button
+                size="lg"
+                variant="outline"
+              >
+                Book Demo
+              </Button>
+            </Link>
+
           </div>
 
           <div className="mt-12 grid grid-cols-3 gap-6">
@@ -84,6 +93,7 @@ export default function Hero() {
             </div>
 
           </div>
+
         </div>
 
         {/* Right Side */}
@@ -111,38 +121,20 @@ export default function Hero() {
 
               <div className="rounded-2xl bg-slate-100 p-5">
                 <BarChart3 className="mb-3 h-8 w-8 text-blue-500" />
-
-                <p className="text-sm text-slate-500">
-                  System Size
-                </p>
-
-                <h3 className="text-2xl font-bold">
-                  6.5 kW
-                </h3>
+                <p className="text-sm text-slate-500">System Size</p>
+                <h3 className="text-2xl font-bold">6.5 kW</h3>
               </div>
 
               <div className="rounded-2xl bg-slate-100 p-5">
                 <CheckCircle2 className="mb-3 h-8 w-8 text-green-500" />
-
-                <p className="text-sm text-slate-500">
-                  Roof Status
-                </p>
-
-                <h3 className="text-2xl font-bold">
-                  Ready
-                </h3>
+                <p className="text-sm text-slate-500">Roof Status</p>
+                <h3 className="text-2xl font-bold">Ready</h3>
               </div>
 
               <div className="rounded-2xl bg-slate-100 p-5">
                 <FileText className="mb-3 h-8 w-8 text-purple-500" />
-
-                <p className="text-sm text-slate-500">
-                  Proposal
-                </p>
-
-                <h3 className="text-2xl font-bold">
-                  Generated
-                </h3>
+                <p className="text-sm text-slate-500">Proposal</p>
+                <h3 className="text-2xl font-bold">Generated</h3>
               </div>
 
               <div className="rounded-2xl bg-slate-100 p-5">
@@ -157,9 +149,11 @@ export default function Hero() {
 
             </div>
 
-            <Button className="mt-8 w-full bg-amber-500 hover:bg-amber-600">
-              Generate Proposal
-            </Button>
+            <Link href="/register">
+              <Button className="mt-8 w-full bg-amber-500 hover:bg-amber-600">
+                Generate Proposal
+              </Button>
+            </Link>
 
           </div>
 
