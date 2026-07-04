@@ -35,7 +35,9 @@ export default function EditProjectDialog({
 }: Props) {
   const [loading, setLoading] = useState(false);
 
-  // Don't render if no project is selected
+  //
+    console.log("Dialog project:", project);
+    console.log("Dialog open:", open); 
   if (!project) return null;
 
   // TypeScript now knows this is a Project

@@ -3,20 +3,32 @@
 import { useState } from "react";
 
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
+
 import ProjectTable from "@/components/projects/ProjectTable";
 import AddProjectDialog from "@/components/projects/AddProjectDialog";
+import EditProjectDialog from "@/components/projects/EditProjectDialog";
+
+import { Project } from "@/lib/project-api";
 
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 
 export default function ProjectsPage() {
   const [open, setOpen] = useState(false);
+
+  const [editOpen, setEditOpen] = useState(false);
+
+  const [selectedProject, setSelectedProject] =
+    useState<Project | null>(null);
+
   const [refreshKey, setRefreshKey] = useState(0);
 
   return (
     <DashboardLayout>
       <div className="space-y-6">
+
         <div className="flex items-center justify-between">
+
           <div>
             <h1 className="text-3xl font-bold">
               Projects
@@ -34,15 +46,39 @@ export default function ProjectsPage() {
             <Plus className="mr-2 h-4 w-4" />
             Add Project
           </Button>
+
         </div>
 
-        <ProjectTable refreshKey={refreshKey} />
+        <ProjectTable
+          refreshKey={refreshKey}
+         onEdit={(project) => {
+            console.log("Selected:", project);
+
+            setSelectedProject(project);
+
+            setTimeout(() => {
+                setEditOpen(true);
+            }, 100);
+            }}
+        />
 
         <AddProjectDialog
           open={open}
           onOpenChange={setOpen}
-          onSuccess={() => setRefreshKey((prev) => prev + 1)}
+          onSuccess={() =>
+            setRefreshKey((prev) => prev + 1)
+          }
         />
+
+        <EditProjectDialog
+          open={editOpen}
+          onOpenChange={setEditOpen}
+          project={selectedProject}
+          onSuccess={() =>
+            setRefreshKey((prev) => prev + 1)
+          }
+        />
+
       </div>
     </DashboardLayout>
   );

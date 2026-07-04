@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import {
@@ -13,15 +14,16 @@ import { Input } from "@/components/ui/input";
 
 interface Props {
   refreshKey: number;
+  onEdit: (project: Project) => void;
 }
 
 export default function ProjectTable({
   refreshKey,
+  onEdit,
 }: Props) {
   const [projects, setProjects] = useState<Project[]>([]);
   const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
-
   const [search, setSearch] = useState("");
 
   async function loadProjects() {
@@ -32,7 +34,6 @@ export default function ProjectTable({
 
       setProjects(data);
       setFilteredProjects(data);
-
     } catch (error) {
       console.error(error);
     } finally {
@@ -52,7 +53,6 @@ export default function ProjectTable({
     );
 
     setFilteredProjects(filtered);
-
   }, [search, projects]);
 
   async function handleDelete(id: number) {
@@ -60,12 +60,9 @@ export default function ProjectTable({
 
     try {
       await deleteProject(id);
-
       loadProjects();
-
     } catch (error) {
       console.error(error);
-
       alert("Failed to delete project.");
     }
   }
@@ -80,9 +77,7 @@ export default function ProjectTable({
 
   return (
     <div className="rounded-xl bg-white p-6 shadow-sm">
-
       <div className="mb-6 flex items-center justify-between">
-
         <h2 className="text-xl font-bold">
           Projects
         </h2>
@@ -93,75 +88,64 @@ export default function ProjectTable({
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-
       </div>
 
       <table className="w-full">
-
         <thead>
-
           <tr className="border-b">
-
             <th className="py-3 text-left">Project</th>
             <th className="py-3 text-left">Customer ID</th>
             <th className="py-3 text-left">Type</th>
             <th className="py-3 text-left">Roof</th>
             <th className="py-3 text-left">Status</th>
             <th className="py-3 text-right">Actions</th>
-
           </tr>
-
         </thead>
 
         <tbody>
-
           {filteredProjects.length === 0 ? (
-
             <tr>
-
               <td
                 colSpan={6}
                 className="py-8 text-center text-slate-500"
               >
                 No projects found.
               </td>
-
             </tr>
-
           ) : (
-
             filteredProjects.map((project) => (
-
               <tr
                 key={project.id}
                 className="border-b"
               >
-
-                <td className="py-4">
+                <td className="py-4 font-medium">
                   {project.project_name}
                 </td>
 
-                <td>
-                  {project.customer_id}
-                </td>
+                <td>{project.customer_id}</td>
 
-                <td>
-                  {project.project_type}
-                </td>
+                <td>{project.project_type}</td>
 
-                <td>
-                  {project.roof_type}
-                </td>
+                <td>{project.roof_type}</td>
 
-                <td>
-                  {project.status}
-                </td>
+                <td>{project.status}</td>
 
                 <td className="space-x-2 text-right">
+                  <Link
+                    href={`/dashboard/projects/${project.id}`}
+                  >
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                    >
+                      View
+                    </Button>
+                  </Link>
 
                   <Button
                     size="sm"
                     variant="outline"
+                    onClick={() => onEdit(project)}
                   >
                     Edit
                   </Button>
@@ -169,25 +153,16 @@ export default function ProjectTable({
                   <Button
                     size="sm"
                     variant="destructive"
-                    onClick={() =>
-                      handleDelete(project.id)
-                    }
+                    onClick={() => handleDelete(project.id)}
                   >
                     Delete
                   </Button>
-
                 </td>
-
               </tr>
-
             ))
-
           )}
-
         </tbody>
-
       </table>
-
     </div>
   );
 }

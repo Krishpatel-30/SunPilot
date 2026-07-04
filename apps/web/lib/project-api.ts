@@ -32,6 +32,14 @@ export async function getProjects(): Promise<Project[]> {
   return response.data;
 }
 
+// ✅ ADD THIS FUNCTION
+export async function getProject(
+  id: number
+): Promise<Project> {
+  const response = await api.get(`/projects/${id}`);
+  return response.data;
+}
+
 export async function createProject(
   data: CreateProjectData
 ): Promise<Project> {
