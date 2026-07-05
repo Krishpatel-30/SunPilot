@@ -77,7 +77,9 @@ export default function ProjectTable({
 
   return (
     <div className="rounded-xl bg-white p-6 shadow-sm">
+
       <div className="mb-6 flex items-center justify-between">
+
         <h2 className="text-xl font-bold">
           Projects
         </h2>
@@ -88,10 +90,13 @@ export default function ProjectTable({
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+
       </div>
 
       <table className="w-full">
+
         <thead>
+
           <tr className="border-b">
             <th className="py-3 text-left">Project</th>
             <th className="py-3 text-left">Customer ID</th>
@@ -100,10 +105,13 @@ export default function ProjectTable({
             <th className="py-3 text-left">Status</th>
             <th className="py-3 text-right">Actions</th>
           </tr>
+
         </thead>
 
         <tbody>
+
           {filteredProjects.length === 0 ? (
+
             <tr>
               <td
                 colSpan={6}
@@ -112,12 +120,16 @@ export default function ProjectTable({
                 No projects found.
               </td>
             </tr>
+
           ) : (
+
             filteredProjects.map((project) => (
+
               <tr
                 key={project.id}
                 className="border-b"
               >
+
                 <td className="py-4 font-medium">
                   {project.project_name}
                 </td>
@@ -131,6 +143,7 @@ export default function ProjectTable({
                 <td>{project.status}</td>
 
                 <td className="space-x-2 text-right">
+
                   <Link
                     href={`/dashboard/projects/${project.id}`}
                   >
@@ -157,12 +170,19 @@ export default function ProjectTable({
                   >
                     Delete
                   </Button>
+
                 </td>
+
               </tr>
+
             ))
+
           )}
+
         </tbody>
+
       </table>
+
     </div>
   );
 }

@@ -15,7 +15,6 @@ import { Plus } from "lucide-react";
 
 export default function ProjectsPage() {
   const [open, setOpen] = useState(false);
-
   const [editOpen, setEditOpen] = useState(false);
 
   const [selectedProject, setSelectedProject] =
@@ -51,15 +50,10 @@ export default function ProjectsPage() {
 
         <ProjectTable
           refreshKey={refreshKey}
-         onEdit={(project) => {
-            console.log("Selected:", project);
-
+          onEdit={(project) => {
             setSelectedProject(project);
-
-            setTimeout(() => {
-                setEditOpen(true);
-            }, 100);
-            }}
+            setEditOpen(true);
+          }}
         />
 
         <AddProjectDialog
